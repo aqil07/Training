@@ -7,34 +7,50 @@ class NewItem {
 
 class paperStack {
     constructor() {
-        this.firstP = null
-        this.latestP = null
+        this.btmStack = null
+        this.topStack = null
         this.size = 0
     }
 
     add(val) {
         var newEntry = new NewItem(val)
-        if (!this.firstP) {
-            this.firstP = newEntry
-            this.latestP = newEntry
+        if (!this.btmStack) {
+            this.btmStack = newEntry
+            this.topStack = newEntry
         }else{
-            var tmp = this.firstP
-            this.firstP = newEntry
-            this.firstP.nextItem = tmp
+            var tmp = this.topStack
+            this.topStack = newEntry
+            this.topStack.nextItem = tmp
         }
+        console.log('t',this.topStack);
+        console.log('b',this.btmStack);
         return ++this.size
     }
 
     remove(){
-        if(!this.firstP){return null}
+        if(!this.topStack){return null}
 
-        if(this.firstP === this.latestP){
-            this.latestP = null
+        if(this.topStack === this.btmStack){
+            this.btmStack = null
         }
-        var tmp = this.firstP
-        this.latestP = this.firstP
+        var tmp = this.topStack
+        this.btmStack = this.topStack
         this.size--
         return tmp.item
+    }
+
+    move(){
+        if(!this.btmStack){return null}
+
+        if(this.btmStack === this.topStack){
+            return 'Only one piece in the stack'
+        }
+
+        var tmp = this.topStack
+        // console.log(tmp);
+        // this.btmStack = this.topStack
+        // this.topStack = tmp
+        // return this.btmStack
     }
 }
 
@@ -44,4 +60,6 @@ newStack.add('money');
 
 newStack.add('tress');
 
-console.log(newStack.remove());
+newStack.add('tress3');
+newStack.move()
+// console.log(newStack.remove());
